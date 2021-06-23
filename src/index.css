@@ -1,0 +1,19 @@
+.background{
+    background-size: cover;
+    padding-top: 50px;
+}
+
+.bg-form{
+    background-position: bottom;
+    display: flex;
+    justify-content: center;
+    
+}
+.blur{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.title-font{
+    font-family: 'Anton', sans-serif;
+}
