@@ -17,3 +17,36 @@
 .title-font{
     font-family: 'Anton', sans-serif;
 }
+
+/* HOME STYLES */
+
+.bg-home{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.table-heroe{
+    border: solid white 1px;
+    height: 100px;
+}
+
+.table-thead{
+    background-color: #173d52;
+    text-align: center;
+}
+
+.heroe-item{
+    border: solid white 1px;
+    text-align: center;
+    height: 100px;
+}
+
+.img-heroe{
+    background-image: url('./images/heroe-ej.jpg');
+    background-size: contain;
+    background-repeat: no-repeat; 
+    height: 80px;
+    background-color: transparent; 
+}

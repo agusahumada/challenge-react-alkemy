@@ -13,3 +13,15 @@ export function enviarDatos(email,password,cbresponse,cberror){
       });
     
 }
+
+export function traerHeroe() {
+  let heroName;
+  axios.get('https://www.superheroapi.com/api.php/3603195309782355/search/batman')
+  .then(function (response) {
+    heroName = response.data.results[0].name;
+    return heroName;
+  })
+  .catch(function(error){
+    console.log(error.response);
+  });
+}
