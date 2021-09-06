@@ -1,90 +1,115 @@
+import { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
- import { useEffect } from 'react';
+import { useFormik } from "formik";
+import { getHeroData } from "./Request";
 import Header from "./HeaderLogin";
-import { traerHeroe } from "./Request";
+import Hero from "./Hero";
+import Team from "./Team";
 
+const Home = () => {
+  let history = useHistory();
+  if (!localStorage.getItem("token")) {
+    history.push("/");
+  }
 
+  const [heros, setHeros] = useState([]);
+  const [team, addTeam] = useState([]);
+  const [error, setError] = useState(false);
 
-const Home = () =>{
-   let  history = useHistory();
-    if(!localStorage.getItem("token")){
-        history.push("/");
+  const formik = useFormik({
+    initialValues: {
+      search: "",
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await getHeroData(formik.values.search);
+    console.log(response);
+
+    if (response.data.response !== "error") {
+      setError(false);
+      const listaDeheros = response.data.results;
+      setHeros([]);
+      listaDeheros.forEach((hero) => {
+        setHeros((heros) => [...heros, hero]);
+      });
+    } else {
+      const error = response.data.error;
+      setError(true);
+      setHeros([]);
     }
-    
-    useEffect(() => {
-        let response = traerHeroe();
-        console.log(response);
-    },[]);
-   
-  
-    return (
-        <div className="bg-dark bg-home">
-            <nav className="d-flex justify-content-end">
-                <a className="text-light m-4 text-decoration-none" href="/">Cerrar sesión</a>
-            </nav>
-            <Header titulo = "EQUIPO DE HEROES"/>
-                <form className="d-flex mx-5">
-                    <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-                    <button className="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            <div className="d-flex justify-content-center text-light">
-                <table className="table table-heroe text-light m-5">
-                    <thead>
-                        <tr className="table-thead">
-                            <th className="heroe-item">IMAGEN</th>
-                            <th className="heroe-item">NOMBRE</th>
-                            <th className="heroe-item">DETALLES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="image1" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name1" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="detail1" className="heroe-item">Maria Anders</td>
-                        </tr>
-                        <tr>
-                        <   td id="image2" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name2" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="detail2" className="heroe-item">Maria Anders</td>
-                        </tr>
-                        <tr>
-                            <td id="image3" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name3" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="detail3" className="heroe-item">Maria Anders</td>
-                        </tr>
-                        <tr>
-                            <td id="image4" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name4" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="detail4" className="heroe-item">Maria Anders</td>
-                        </tr>
-                        <tr>
-                            <td id="image5" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name5" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="datail5" className="heroe-item">Maria Anders</td>
-                        </tr>
-                        <tr>
-                            <td id="image6" className="heroe-item">
-                                <div className="img-heroe" id="image"/>
-                            </td>
-                            <td id="name6" className="heroe-item">Alfreds Futterkiste</td>
-                            <td id="detail6" className="heroe-item">Maria Anders</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-           
+  };
+
+  return (
+    <Fragment>
+      <div className="bg-home blur">
+        <nav className="d-flex justify-content-end">
+          <a className="text-light m-4 text-decoration-none" href="/">
+            Cerrar sesión
+          </a>
+        </nav>
+        <Header titulo="EQUIPO DE HEROES" />
+        <form
+          id="form-search"
+          className="d-flex justify-content-center mx-5"
+          onSubmit={handleSubmit}
+        >
+          <input
+            id="search"
+            name="search"
+            className="form-control d-flex w-25 bg-transparent text-light"
+            type="text"
+            placeholder="Search Hero Name"
+            aria-label="Search"
+            onChange={formik.handleChange}
+            value={formik.values.search}
+          />
+          <button className="btn btn-primary mx-2" type="submit">
+            Search
+          </button>
+        </form>
+        {error ? (
+          <p className="text-light d-flex justify-content-center mt-3">
+            No se encontraron resultados.
+          </p>
+        ) : null}
+        <div className="container">
+          <div className="row">
+            {heros.length > 0 ? (
+              heros.map((hero) => (
+                <Hero
+                  id={hero.id}
+                  key={hero.id}
+                  hero={hero}
+                  heros={heros}
+                  setHeros={setHeros}
+                  team={team}
+                  addTeam={addTeam}
+                  name={hero.name}
+                  image={hero.image.url}
+                  intelligence={hero.powerstats.intelligence}
+                  strength={hero.powerstats.strength}
+                  speed={hero.powerstats.speed}
+                  durability={hero.powerstats.durability}
+                  power={hero.powerstats.power}
+                  combat={hero.powerstats.combat}
+                  className="text-light"
+                />
+              ))
+            ) : (
+              <span className="text-center text-light m-3">
+                BIENVENID@, BUSCA HEROES EN EL BUSCADOR Y CREA TU PROPIO TEAM DE SUPERHEROES!
+                ...PERO RECUERDA QUE TU TEAM TIENE QUE SER DE 6 INTEGRANTES COMO MÁXIMO.
+              </span>
+            )}
+          </div>
+          <Team team={team} addTeam={addTeam} />
         </div>
-    )
-}
+      </div>
+    </Fragment>
+  );
+};
 
 export default Home;
