@@ -34,7 +34,7 @@ const Login = () => {
                     <div className="mb-3">
                         <label className="form-label" htmlFor="email">Email</label>
                         <input type="email" name="email" className="form-control" id="email" aria-describedby="emailHelp" onChange={formik.handleChange} value={formik.values.email} />
-                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                        <div id="emailHelp" className="form-text">Nunca compartiremos tu dirección de email con nadie.</div>
                     </div>
                     <div className="mb-3">
                         <label className="form-label" htmlFor="password">Contraseña </label>

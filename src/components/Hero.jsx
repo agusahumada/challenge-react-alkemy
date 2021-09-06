@@ -1,32 +1,46 @@
 import React from "react";
 
+const Hero = ({ heros, addTeam, team, image, name, id }) => {
+  const addToTeam = (id) => {
+    const hero = heros.filter((hero) => hero.id === id)[0];
+    const heroIsNotInTeam = team.filter((hero) => hero.id === id);
+    if (team.length < 6 && heroIsNotInTeam < 1){
+        addTeam([...team, hero]);
+    }
+  };
 
-const Hero = ({image, name}) => {
-    
+  const deletehero = (id) => {
+    const heros = team.filter((hero) => hero.id !== id);
+    addTeam(heros);
+  };
+
   return (
-    <div className="d-flex justify-content-center text-light">
-      <table className="table table-heroe text-light m-5">
-        <thead>
-          <tr className="table-thead">
-            <th className="heroe-item">IMAGEN</th>
-            <th className="heroe-item">NOMBRE</th>
-            <th className="heroe-item">DETALLES</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td id="image1" className="heroe-item">
-                <img src={image} alt="" />
-            </td>
-            <td id="name1" className="heroe-item">
-              <p>{name}</p>
-            </td>
-            <td id="detail1" className="heroe-item">
-              details
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="col-sm-4 mb-3 mt-5">
+      <div className="blur-cards text-light">
+        <img src={image} alt="" className="img-heros img-fluid" />
+        <div className="info-hero">
+          <h5 className="hero-item card-title mt-2">{name}</h5>
+          <div className="d-flex justify-content-center">
+            {heros ? (
+              <button
+                type="btn"
+                className="btn-home btn btn-outline-success mt-2 mb-2 fw-bold"
+                onClick={() => addToTeam(id)}
+              >
+                Agregar al Equipo
+              </button>
+            ) : (
+              <button
+                type="btn"
+                className="btn btn-outline-warning mt-2 mb-2 btn-home fw-bold"
+                onClick={() => deletehero(id)}
+              >
+                Eliminar del Equipo
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

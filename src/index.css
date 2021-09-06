@@ -10,8 +10,14 @@
     
 }
 .blur{
-    background: rgba(255, 255, 255, 0.2);
+    background: #ffffffcc;
     backdrop-filter: blur(8px);
+}
+.blur-cards{
+    background: #280e37cc;
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+
 }
 
 .title-font{
@@ -24,29 +30,36 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #26214b;
+    opacity: 1;
+    min-height: 100vh;
+
 }
 
 
-.table-heroe{
-    border: solid white 1px;
-    height: 100px;
-}
-
-.table-thead{
-    background-color: #173d52;
+.hero-item{
     text-align: center;
+    padding-bottom: 5px;
+    font-size: 24px;
+    /* height: 100px; */
 }
 
-.heroe-item{
-    border: solid white 1px;
-    text-align: center;
-    height: 100px;
-}
-
-.img-heroe{
-    background-image: url('./images/heroe-ej.jpg');
+.img-hero{
     background-size: contain;
     background-repeat: no-repeat; 
-    height: 80px;
-    background-color: transparent; 
+    background-color: transparent;
+}
+
+.btn-home{
+    width: 80%;
+    height: 60px;
+}
+
+.empty-container{
+    color: white;
+    background-color: #696969;
+    opacity: 0.9;
+    padding: 20px;
+    border-radius: 3px;
+    margin-top: 10px;
 }
