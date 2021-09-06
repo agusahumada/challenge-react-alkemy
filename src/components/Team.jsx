@@ -18,6 +18,12 @@ const Team = ({ team, addTeam }) => {
               addTeam={addTeam}
               name={hero.name}
               image={hero.image.url}
+              intelligence={hero.powerstats.intelligence}
+              strength={hero.powerstats.strength}
+              speed={hero.powerstats.speed}
+              durability={hero.powerstats.durability}
+              power={hero.powerstats.power}
+              combat={hero.powerstats.combat}
             />
           ))
         )}

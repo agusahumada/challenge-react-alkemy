@@ -32,8 +32,8 @@ const Home = () => {
       setError(false);
       const listaDeheros = response.data.results;
       setHeros([]);
-      listaDeheros.forEach((heroe) => {
-        setHeros((heros) => [...heros, heroe]);
+      listaDeheros.forEach((hero) => {
+        setHeros((heros) => [...heros, hero]);
       });
     } else {
       const error = response.data.error;
@@ -89,6 +89,12 @@ const Home = () => {
                   addTeam={addTeam}
                   name={hero.name}
                   image={hero.image.url}
+                  intelligence={hero.powerstats.intelligence}
+                  strength={hero.powerstats.strength}
+                  speed={hero.powerstats.speed}
+                  durability={hero.powerstats.durability}
+                  power={hero.powerstats.power}
+                  combat={hero.powerstats.combat}
                   className="text-light"
                 />
               ))
