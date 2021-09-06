@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import HeroDetails from "./HeroDetails";
 
 const Hero = ({ hero, heros, addTeam, team, image, name, id }) => {
-  const { powerstats, biography, appearance, work } = hero;
+  const { powerstats } = hero;
   const { intelligence, strength, speed, durability, power, combat } =
     powerstats;
-  const { aliases } = biography;
-  const { height, weight } = appearance;
+
+  const [details, setDetails] = useState(false);
 
   const addToTeam = (id) => {
     const hero = heros.filter((hero) => hero.id === id)[0];
@@ -20,34 +21,14 @@ const Hero = ({ hero, heros, addTeam, team, image, name, id }) => {
     addTeam(heros);
   };
 
-  const handleClick = (id) => {};
+  const showDetails = () => setDetails(!details);
 
   return (
-    <div className="col-sm-4 mb-3 mt-5">
+    <div className="col-xs-12 col-sm-6 col-lg-4 mb-3 mt-5">
       <div className="blur-cards text-light">
         <div className="details-container">
+          {details ? <HeroDetails hero={hero} /> : null}
           <img src={image} alt="" className="img-heros img-fluid" />
-          <div id="details" className="details">
-            {/* BIOGRAPHY */}
-            <p>BIOGRAPHY:</p>
-            <div className="powerstats">
-              <p>Nombre: {biography[`full-name`]}</p>
-              <p>Alias: {aliases}</p>
-            </div>
-            {/* APPEARENCE */}
-            <p>APPEARENCE:</p>
-            <div className="powerstats">
-              <p>Altura: {height}</p>
-              <p>Peso: {weight}</p>
-              <p>Color de ojos: {appearance[`eye-color`]}</p>
-              <p>Color de cabello: {appearance[`hair-color`]}</p>
-            </div>
-            {/* WORK */}
-            <p>WORK:</p>
-            <div className="powerstats">
-              <p>Lugar de trabajo: {work.base}</p>
-            </div>
-          </div>
         </div>
         <div className="info-hero">
           <h5 className="hero-item card-title mt-2">{name}</h5>
@@ -66,7 +47,7 @@ const Hero = ({ hero, heros, addTeam, team, image, name, id }) => {
                 <button
                   type="btn "
                   className="btn-home btn btn-outline-primary mb-2"
-                  onClick={handleClick}
+                  onClick={showDetails}
                 >
                   Details
                 </button>
