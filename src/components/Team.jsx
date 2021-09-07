@@ -1,10 +1,20 @@
 import React from "react";
 import Hero from "./Hero";
 
-const Team = ({ team, addTeam }) => {
+const Team = ({ team, addTeam, setTeamPowerStats, teamPowerStats }) => {
+  const { intelligence, strength, speed, durability, power, combat } =
+    teamPowerStats;
+
   return (
-    <div>
-      <h5 className="text-light">Equipo {team.length}</h5>
+    <div className="team-container title-font">
+      <h2 className="text-light">Equipo {team.length}</h2>
+      <h3 className="text-light">Powerstats: {team.length}</h3>
+      <legend>Inteligencia: {intelligence}%</legend>
+      <legend>Fuerza: {strength}%</legend>
+      <legend>Velocidad: {speed}%</legend>
+      <legend>Durabilidad: {durability}%</legend>
+      <legend>Poder: {power}%</legend>
+      <legend>Combate: {combat}%</legend>
       <div className="row">
         {team.length === 0 ? (
           <span className="empty-container">No hay heroes en el equipo</span>
@@ -24,6 +34,8 @@ const Team = ({ team, addTeam }) => {
               durability={hero.powerstats.durability}
               power={hero.powerstats.power}
               combat={hero.powerstats.combat}
+              teamPowerStats={teamPowerStats}
+              setTeamPowerStats={setTeamPowerStats}
             />
           ))
         )}
