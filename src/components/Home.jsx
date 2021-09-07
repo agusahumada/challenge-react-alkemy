@@ -15,6 +15,14 @@ const Home = () => {
   const [heros, setHeros] = useState([]);
   const [team, addTeam] = useState([]);
   const [error, setError] = useState(false);
+  const [teamPowerStats, setTeamPowerStats] = useState({
+    intelligence: 0,
+    strength: 0,
+    speed: 0,
+    durability: 0,
+    power: 0,
+    combat: 0,
+});
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +34,6 @@ const Home = () => {
     e.preventDefault();
 
     const response = await getHeroData(formik.values.search);
-    console.log(response);
 
     if (response.data.response !== "error") {
       setError(false);
@@ -67,7 +74,7 @@ const Home = () => {
             value={formik.values.search}
           />
           <button className="btn btn-primary mx-2" type="submit">
-            Search
+            Buscar
           </button>
         </form>
         {error ? (
@@ -95,6 +102,8 @@ const Home = () => {
                   durability={hero.powerstats.durability}
                   power={hero.powerstats.power}
                   combat={hero.powerstats.combat}
+                  teamPowerStats={teamPowerStats}
+                  setTeamPowerStats={setTeamPowerStats}
                   className="text-light"
                 />
               ))
@@ -105,7 +114,7 @@ const Home = () => {
               </span>
             )}
           </div>
-          <Team team={team} addTeam={addTeam} />
+          <Team team={team} addTeam={addTeam} setTeamPowerStats={setTeamPowerStats} teamPowerStats={teamPowerStats} />
         </div>
       </div>
     </Fragment>
