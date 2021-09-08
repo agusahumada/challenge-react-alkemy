@@ -7,7 +7,7 @@ const Team = ({ team, addTeam, setTeamPowerStats, teamPowerStats }) => {
 
   return (
     <div className="team-container">
-      <h2 className="text-light">Equipo {team.length}</h2>
+      <h2 id="id-team" className="text-light">Equipo {team.length}</h2>
       <h3 className="text-light">Powerstats: {team.length}</h3>
       <legend>Inteligencia: {intelligence}%</legend>
       <legend>Fuerza: {strength}%</legend>
