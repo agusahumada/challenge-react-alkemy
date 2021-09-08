@@ -12,60 +12,86 @@ const Hero = ({
   teamPowerStats,
   setTeamPowerStats,
 }) => {
-  const { powerstats } = hero;
+  const { powerstats, biography } = hero;
   const { intelligence, strength, speed, durability, power, combat } =
     powerstats;
-  const powerList = [intelligence, strength, speed, durability, power, combat];
+  const { good, bad } = teamPowerStats;
 
   const [details, setDetails] = useState(false);
-
-  const parsePowerToInt = (powerList) => {
-    return powerList.map((power) => console.log(power));
-  };
-
-  console.log(teamPowerStats);
 
   const addToTeam = (id) => {
     const hero = heros.filter((hero) => hero.id === id)[0];
     const heroIsNotInTeam = team.filter((hero) => hero.id === id);
-    if (team.length < 6 && heroIsNotInTeam < 1) {
-      addTeam([...team, hero]);
-      let arr = [
-        teamPowerStats,
-        {
-          intelligence: isNaN(Number(intelligence)) ? 0 : Number(intelligence),
-          strength: isNaN(Number(strength)) ? 0 : Number(strength),
-          speed: isNaN(Number(speed)) ? 0 : Number(speed),
-          durability: isNaN(Number(durability)) ? 0 : Number(durability),
-          power: isNaN(Number(power)) ? 0 : Number(power),
-          combat: isNaN(Number(combat)) ? 0 : Number(combat),
-        },
-      ];
 
-      const result = arr.reduce((a, b) => ({
-        intelligence: a.intelligence + b.intelligence,
-        strength: a.strength + b.strength,
-        speed: a.speed + b.speed,
-        durability: a.durability + b.durability,
-        power: a.power + b.power,
-        combat: a.combat + b.combat,
-      }));
-      console.log(setTeamPowerStats(result));
+    if (teamPowerStats.good < 3 || teamPowerStats.bad < 3) {
+      switch (hero.biography.alignment) {
+        case "good":
+          teamPowerStats.good++;
+          break;
+        case "bad":
+          teamPowerStats.bad++;
+          break;
+
+        default:
+          break;
+      }
+
+      if (teamPowerStats.good > 3) {
+        return teamPowerStats.good--;
+      }
+      if (teamPowerStats.bad > 3) {
+        return teamPowerStats.bad--;
+      }
+
+      if (team.length < 6 && heroIsNotInTeam < 1) {
+        addTeam([...team, hero]);
+
+        console.log(hero.biography.alignment);
+        let arr = [
+          teamPowerStats,
+          {
+            intelligence: isNaN(Number(intelligence))
+              ? 0
+              : Number(intelligence),
+            strength: isNaN(Number(strength)) ? 0 : Number(strength),
+            speed: isNaN(Number(speed)) ? 0 : Number(speed),
+            durability: isNaN(Number(durability)) ? 0 : Number(durability),
+            power: isNaN(Number(power)) ? 0 : Number(power),
+            combat: isNaN(Number(combat)) ? 0 : Number(combat),
+            good: 0,
+            bad: 0,
+          },
+        ];
+
+        const result = arr.reduce((a, b) => ({
+          intelligence: a.intelligence + b.intelligence,
+          strength: a.strength + b.strength,
+          speed: a.speed + b.speed,
+          durability: a.durability + b.durability,
+          power: a.power + b.power,
+          combat: a.combat + b.combat,
+          good: a.good + b.good,
+          bad: a.bad + b.bad,
+        }));
+        console.log(teamPowerStats);
+        setTeamPowerStats(result);
+      }
     }
   };
 
   const deletehero = (id) => {
     const heros = team.filter((hero) => hero.id !== id);
     addTeam(heros);
-    let arr = [teamPowerStats,
-        {
-          intelligence: isNaN(Number(intelligence)) ? 0 : Number(intelligence),
-          strength: isNaN(Number(strength)) ? 0 : Number(strength),
-          speed: isNaN(Number(speed)) ? 0 : Number(speed),
-          durability: isNaN(Number(durability)) ? 0 : Number(durability),
-          power: isNaN(Number(power)) ? 0 : Number(power),
-          combat: isNaN(Number(combat)) ? 0 : Number(combat),
-        },
+    let arr = [
+      teamPowerStats,
+      {
+        intelligence: isNaN(Number(intelligence)) ? 0 : Number(intelligence),
+        strength: isNaN(Number(strength)) ? 0 : Number(strength),
+        speed: isNaN(Number(speed)) ? 0 : Number(speed),
+        durability: isNaN(Number(durability)) ? 0 : Number(durability),
+        power: isNaN(Number(power)) ? 0 : Number(power),
+        combat: isNaN(Number(combat)) ? 0 : Number(combat),
+      },
     ];
 
     const result = arr.reduce((a, b) => ({
@@ -76,7 +102,6 @@ const Hero = ({
       power: a.power - b.power,
       combat: a.combat - b.combat,
     }));
-    console.log(setTeamPowerStats(result));
   };
 
   const showDetails = () => setDetails(!details);
@@ -98,6 +123,7 @@ const Hero = ({
             <li>Durability: {durability}</li>
             <li>Power: {power}</li>
             <li>Combat: {combat}</li>
+            <li>Alignment: {biography.alignment}</li>
           </ul>
           <div className="d-flex justify-content-center">
             {heros ? (

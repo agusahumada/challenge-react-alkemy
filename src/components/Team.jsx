@@ -6,7 +6,7 @@ const Team = ({ team, addTeam, setTeamPowerStats, teamPowerStats }) => {
     teamPowerStats;
 
   return (
-    <div className="team-container title-font">
+    <div className="team-container">
       <h2 className="text-light">Equipo {team.length}</h2>
       <h3 className="text-light">Powerstats: {team.length}</h3>
       <legend>Inteligencia: {intelligence}%</legend>
