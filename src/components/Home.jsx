@@ -22,7 +22,9 @@ const Home = () => {
     durability: 0,
     power: 0,
     combat: 0,
-});
+    bad: 0,
+    good: 0,
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +50,6 @@ const Home = () => {
       setHeros([]);
     }
   };
-
   return (
     <Fragment>
       <div className="bg-home blur">
@@ -102,6 +103,7 @@ const Home = () => {
                   durability={hero.powerstats.durability}
                   power={hero.powerstats.power}
                   combat={hero.powerstats.combat}
+                  alignment={hero.biography.alignment}
                   teamPowerStats={teamPowerStats}
                   setTeamPowerStats={setTeamPowerStats}
                   className="text-light"
@@ -109,12 +111,18 @@ const Home = () => {
               ))
             ) : (
               <span className="text-center text-light m-3">
-                BIENVENID@, BUSCA HEROES EN EL BUSCADOR Y CREA TU PROPIO TEAM DE SUPERHEROES!
-                ...PERO RECUERDA QUE TU TEAM TIENE QUE SER DE 6 INTEGRANTES COMO MÁXIMO.
+                BIENVENID@, BUSCA HEROES EN EL BUSCADOR Y CREA TU PROPIO TEAM DE
+                SUPERHEROES! ...PERO RECUERDA QUE TU TEAM TIENE QUE SER DE 6
+                INTEGRANTES COMO MÁXIMO.
               </span>
             )}
           </div>
-          <Team team={team} addTeam={addTeam} setTeamPowerStats={setTeamPowerStats} teamPowerStats={teamPowerStats} />
+          <Team
+            team={team}
+            addTeam={addTeam}
+            setTeamPowerStats={setTeamPowerStats}
+            teamPowerStats={teamPowerStats}
+          />
         </div>
       </div>
     </Fragment>
