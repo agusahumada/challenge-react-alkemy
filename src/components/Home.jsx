@@ -54,7 +54,8 @@ const Home = () => {
     <Fragment>
       <div className="bg-home blur">
         <nav className="d-flex justify-content-end">
-          <a className="text-light m-4 text-decoration-none" href="/">
+          <a className="text-light m-4 text-decoration-none title-font" href="#id-team">Mi equipo</a>
+          <a className="text-light m-4 text-decoration-none title-font" href="/">
             Cerrar sesión
           </a>
         </nav>
