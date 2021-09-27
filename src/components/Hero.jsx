@@ -46,7 +46,6 @@ const Hero = ({
       if (team.length < 6 && heroIsNotInTeam < 1) {
         addTeam([...team, hero]);
 
-        console.log(hero.biography.alignment);
         let arr = [
           teamPowerStats,
           {
@@ -73,7 +72,7 @@ const Hero = ({
           good: a.good + b.good,
           bad: a.bad + b.bad,
         }));
-        console.log(teamPowerStats);
+        
         setTeamPowerStats(result);
       }
     }

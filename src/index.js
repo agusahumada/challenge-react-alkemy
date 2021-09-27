@@ -3,15 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import Home from './components/Home';
+
+import { BrowserRouter as Router, Switch,Route} from 'react-router-dom';
+
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 ReactDOM.render(
   <Router>
-      <Switch>
-        <Route exact path="/" component={App}/>
-        <Route exact path="/home" component={Home} />
-      </Switch>
+    <Provider store={store()}>
+        <Switch>
+          <Route exact path="/" component={App}/>
+          <Route exact path="/home" component={Home} />
+        </Switch>
+      </Provider>
     </Router>,
   
   document.getElementById('root')

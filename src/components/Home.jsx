@@ -6,11 +6,17 @@ import Header from "./HeaderLogin";
 import Hero from "./Hero";
 import Team from "./Team";
 
+// hooks react redux
+// import {useDispatch, useSelector} from 'react-redux'
+// import { getHerosAction } from '../redux/heroDucks'
+
 const Home = () => {
   let history = useHistory();
   if (!localStorage.getItem("token")) {
     history.push("/");
   }
+
+  // const dispatch = useDispatch()
 
   const [heros, setHeros] = useState([]);
   const [team, addTeam] = useState([]);
@@ -75,7 +81,7 @@ const Home = () => {
             onChange={formik.handleChange}
             value={formik.values.search}
           />
-          <button className="btn btn-primary mx-2" type="submit">
+          <button className="btn btn-primary mx-2" type="submit" >
             Buscar
           </button>
         </form>
